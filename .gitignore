@@ -1,0 +1,14 @@
+.vs
+
+.meta
+
+Library
+
+Temp
+ProjectSettings
+Packages
+Logs
+
+[http] 
+postBuffer = 524288000
+/obj/Debug
