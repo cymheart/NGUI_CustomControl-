@@ -1,0 +1,232 @@
+﻿using System;
+using UnityEngine;
+
+namespace ControlNS
+{
+    [ExecuteInEditMode]
+    public class RoundCheckBox : Control
+    {
+        UISprite bg;
+        UISprite check;
+        Label label;
+
+        bool isMustSelect = true;
+
+        [SerializeField, SetProperty("Font")]
+        Font font;
+        public Font Font
+        {
+            get
+            {
+                return font;
+            }
+            set
+            {
+                font = value;
+                label.Font = value;
+                label.Text = text;
+            }
+        }
+
+        [SerializeField, SetProperty("Text")]
+        string text = "RoundCheckBox";
+        public string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                label.Text = text;
+
+                if (BindProcess != null)
+                    BindProcess(this);
+            }
+        }
+
+
+        // <summary>
+        /// 设置文字尺寸
+        /// </summary>
+        /// <param name="alignment"></param>
+        [SerializeField, SetProperty("FontSize")]
+        int fontSize;
+        public int FontSize
+        {
+            get
+            {
+                return fontSize;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    fontSize = check.height;
+                    label.Height = fontSize;
+                }
+                else
+                {
+                    fontSize = value;
+                    label.Height = fontSize;
+                }
+            }
+        }
+
+
+        [SerializeField, SetProperty("IsDisabled")]
+        bool isDisabled = false;
+        public bool IsDisabled
+        {
+            get
+            {
+                return isDisabled;
+            }
+            set
+            {
+                isDisabled = value;
+
+                if(isDisabled)
+                {
+                    label.Alpha = 0.5f;
+                    baseCollider.enabled = false;
+                    bg.alpha = 0.5f;
+                }
+                else
+                {
+                    baseCollider.enabled = true;
+                    bg.alpha = 1f;
+                    label.Alpha = 1f;
+                }
+
+                if (BindProcess != null)
+                    BindProcess(this);
+            }
+        }
+
+
+        [SerializeField, SetProperty("IsCheck")]
+        bool isCheck = false;
+        public bool IsCheck
+        {
+            get
+            {
+                return isCheck;
+            }
+            set
+            {
+                if (isDisabled)
+                    return;
+
+                isCheck = value;
+                if (isCheck)
+                    check.gameObject.SetActive(true);
+                else
+                    check.gameObject.SetActive(false);
+ 
+                if(BindProcess != null)
+                    BindProcess(this);
+            }
+        }
+
+        override public ControlSizeChangeMode CtrlSizeChangeMode
+        {
+            get
+            {
+                return ctrlSizeChangeMode;
+            }
+            set
+            {
+                ctrlSizeChangeMode = value;
+                label.CtrlSizeChangeMode = ctrlSizeChangeMode;
+            }
+        }
+        protected override void Awake()
+        {
+            base.Awake();
+
+            IsReLayoutByChild = true;
+
+            bg = gameObject.transform.Find("bg").GetComponent<UISprite>();
+            check = gameObject.transform.Find("check").GetComponent<UISprite>();
+            label = gameObject.transform.Find("Label").GetComponent<Label>();
+            label.Parent = this;
+            label.BindProcess = null;
+            label.DockType = DockType.Left;
+            label.MatchType = MatchType.None;
+
+            UIEventListener.Get(gameObject).onClick = Click;
+            UIEventListener.Get(gameObject).onHover = Hover;
+        }
+
+      
+        void Click(GameObject go)
+        {
+            if (isDisabled)
+                return;
+
+            if (isMustSelect)
+                IsCheck = true;
+            else
+                IsCheck = !isCheck;
+        }
+
+        void Hover(GameObject go, bool state)
+        {
+            if (isDisabled)
+                return;
+
+            if (state == true)
+                bg.alpha = 0.5f;
+            else
+                bg.alpha = 1f;
+        }
+
+        protected override void Layout()
+        {
+            if (ctrlSizeChangeMode == ControlSizeChangeMode.FitContentSize)
+            {
+                Width = label.Width + bg.width + bg.width / 3;
+                Height = Math.Max(label.Height, check.height);
+            }
+            else
+            {
+                label.Width = Width - (bg.width + bg.width / 3);
+            }
+
+            Vector3[] worldCorners = WorldCorners;
+            float boxPosX = worldCorners[0].x;
+            float y = (worldCorners[0].y + worldCorners[1].y) / 2;
+
+            //
+            Vector3[] conrners = bg.worldCorners;
+            float bgWidth = conrners[3].x - conrners[0].x;
+            float x = boxPosX + bgWidth / 2;
+            Vector3 pos = bg.transform.position;
+            pos.y = y;
+            pos.x = x;
+            bg.transform.position = pos;
+
+            //
+            conrners = check.worldCorners;
+            float width = conrners[3].x - conrners[0].x;
+            x = boxPosX + width / 2;
+            pos = check.transform.position;
+            pos.y = y;
+            pos.x = x;
+            check.transform.position = pos;
+
+
+            //
+            float labelWidth = label.Width / scale;
+            x = boxPosX + bgWidth + bgWidth/3 + labelWidth / 2;
+            pos = label.transform.position;
+            pos.y = y;
+            pos.x = x;
+            label.transform.position = pos;
+
+            int colliderHeight = Math.Max(label.Height, check.height);
+            baseCollider.size = new Vector3(Width, colliderHeight, 0);
+
+        }
+
+    }
+}
