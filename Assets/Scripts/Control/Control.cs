@@ -225,6 +225,9 @@ namespace ControlNS
         {    
             for(int i=0; i<childrens.Count; i++)
             {
+                if (childrens[i] == null)
+                    continue;
+
                 childrens[i].SetComputedSizeAndPosition();
                 childrens[i].ReLayout();
             }

@@ -46,9 +46,9 @@ namespace ControlNS
 
         public void Destroy()
         {
+            isReLayout = true;
             if(listViewerGroup != null)
-                listViewerGroup.Destory();
-            
+                listViewerGroup.Destory();        
         }
 
         void Press(GameObject go, bool btnState)
