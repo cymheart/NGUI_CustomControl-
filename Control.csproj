@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Control\Button\Button.cs" />
     <Compile Include="Assets\Scripts\Control\CheckBox\CheckBox.cs" />
     <Compile Include="Assets\Scripts\Control\CheckBox\RoundCheckBox.cs" />
     <Compile Include="Assets\Scripts\Control\Control.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Assets\ThirdPart\SetProperty\Scripts\SetPropertyExample.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scripts\Control\Button\Button.cs.meta" />
     <None Include="Assets\ThirdPart\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
     <None Include="Assets\ThirdPart\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
     <None Include="Assets\ThirdPart\NGUI\Examples\Atlases\Refractive\Refractive Font - Normal.txt" />
@@ -294,6 +296,7 @@
     <None Include="Assets\ThirdPart\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\ThirdPart\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

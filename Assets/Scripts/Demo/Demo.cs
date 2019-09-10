@@ -14,6 +14,7 @@ namespace GameModeSettingNS
         RoundCheckBox peopleCount;
 
         Label tips;
+        Button button;
         RoundCheckBox[] turn = new RoundCheckBox[3];
         RoundCheckBox[] joker = new RoundCheckBox[5];
         CheckBox highScoreMode;
@@ -24,6 +25,8 @@ namespace GameModeSettingNS
         RoundCheckBox[] costmode = new RoundCheckBox[2];
         RoundCheckBox[] cmpcard;
         CostInfo costinfo;
+
+
 
         void Start()
         {
@@ -107,18 +110,25 @@ namespace GameModeSettingNS
         {
             Tabler tabler = Control.Create<Tabler>();
             tabler.SetDefaultCellMargin(new Margin(0, 0, 0, 0));
-            listViewer.AddChild(tabler, 30);
+            listViewer.AddChild(tabler, 60);
 
 
             tips = Control.Create<Label>();
             tips.CtrlSizeChangeMode = ControlSizeChangeMode.FitContentSize;
             tips.Height = 25;
             tips.Text = "支持多张大小王作癞子的玩法";
-
             tabler.AddChild(tips, 0, 0);
+
+            button = Control.Create<Button>();
+            button.CtrlSizeChangeMode = ControlSizeChangeMode.FitContentSize;
+            button.Height = 25;
+            button.Text = "癞子玩法";
+
+            tabler.AddChild(button, 0, 1);
+
             tabler.EnableTableLineAutoAdjustRichSize(0, true, LineDir.HORIZONTAL);
             tabler.EnableTableLineAutoAdjustRichSize(0, true, LineDir.VERTICAL);
-
+            tabler.EnableTableLineAutoAdjustRichSize(1, true, LineDir.VERTICAL);
         }
 
         void CreateInfo2()
