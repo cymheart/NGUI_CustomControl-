@@ -42,6 +42,19 @@ namespace ControlNS
             }
         }
 
+        [SerializeField, SetProperty("IsHideText")]
+        bool isHideText = false;
+        public bool IsHideText
+        {
+            get { return isHideText; }
+            set
+            {
+                isHideText = value;
+                isReLayout = true;
+                label.IsHideText = value;
+            }
+        }
+
 
         // <summary>
         /// 设置文字尺寸
@@ -86,11 +99,47 @@ namespace ControlNS
                     baseCollider.enabled = true;
                     bg.alpha = 1f;
                 }
-
-                if (BindProcess != null)
-                    BindProcess(this);
             }
         }
+
+        // <summary>
+        /// 设置Atlas
+        /// </summary>
+        [SerializeField, SetProperty("Atlas")]
+        UIAtlas atlas;
+        public UIAtlas Atlas
+        {
+            get
+            {
+                return atlas;
+            }
+            set
+            {
+                atlas = value;
+                bg.atlas = value;
+            }
+        }
+
+
+        // <summary>
+        /// 设置背景图片
+        /// </summary>
+        /// <param name="alignment"></param>
+        [SerializeField, SetProperty("BgImgName")]
+        string bgImgName;
+        public string BgImgName
+        {
+            get
+            {
+                return bgImgName;
+            }
+            set
+            {
+                bgImgName = value;
+                bg.spriteName = bgImgName;
+            }
+        }
+
 
 
         override public ControlSizeChangeMode CtrlSizeChangeMode
@@ -119,6 +168,9 @@ namespace ControlNS
             label.DockType = DockType.None;
             label.MatchType = MatchType.None;
             label.CtrlSizeChangeMode = ctrlSizeChangeMode;
+            atlas = bg.atlas;
+            bgImgName = bg.spriteName;
+
 
             UIEventListener.Get(gameObject).onClick = Click;
             UIEventListener.Get(gameObject).onHover = Hover;
