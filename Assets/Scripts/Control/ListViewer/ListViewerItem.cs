@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommonNS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace ControlNS
@@ -100,11 +104,12 @@ namespace ControlNS
             state = 1; 
         }
 
+  
         protected override void Update()
         {
             if (state < 0)
             {
-                if(listViewerGroup!= null)
+                if (listViewerGroup != null)
                     listViewerGroup.updater.UnReg(this);
                 return;
             }

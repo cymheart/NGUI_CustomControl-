@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommonNS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace ControlNS
@@ -232,7 +236,7 @@ namespace ControlNS
             check.transform.position = bg.transform.position + new Vector3(0.01f, 0, 0);
 
             //
-            locked.transform.position = bg.transform.position + new Vector3(0.0045f, 0.012f, 0);
+            locked.transform.position = bg.transform.position + new Vector3(0.0025f, 0.012f, 0);
 
 
             //

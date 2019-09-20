@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace ControlNS
@@ -28,27 +31,27 @@ namespace ControlNS
         protected override void Awake()
         {
             base.Awake();
-            cam = GameObject.Find("UI Root/Camera").GetComponent<Camera>();
+            cam = GameObject.Find("UI/UI Root/Camera").GetComponent<Camera>();
             listViewerGroup = new ListViewerGroup(this);
             UIEventListener.Get(gameObject).onPress = Press;
         }
 
-        public void AddChild(Control control, int height)
+        public void AddChild(Control control, int height,  int depth = 10000)
         {
             ListViewerItem viewerItem = Create<ListViewerItem>();
             viewerItem.DockType = DockType.HoriCenter;
             viewerItem.MatchType =MatchType.MatchParentWidth;
+            viewerItem.CtrlSizeChangeMode = ControlSizeChangeMode.FixedControlSize;
             viewerItem.Height = height;
+            viewerItem.Depth = depth;
             AddItem(viewerItem);
             viewerItem.AddChild(control);
         }
 
-
         public void Destroy()
         {
             isReLayout = true;
-            if(listViewerGroup != null)
-                listViewerGroup.Destory();        
+            listViewerGroup.Destory();   
         }
 
         void Press(GameObject go, bool btnState)

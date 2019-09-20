@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
+using UnityUI;
 
 namespace ControlNS
 {
@@ -141,6 +144,34 @@ namespace ControlNS
             {
                 parent = value;
                 parent.childrens.Add(this);
+            }
+        }
+
+
+        public int Depth
+        {
+            get
+            {
+                if (baseWidget != null)
+                {
+                    return baseWidget.depth;
+                }
+                else
+                {
+                    return basePanel.depth;
+                }
+            }
+            set
+            {
+
+                if (baseWidget != null)
+                {
+                    baseWidget.depth = value;
+                }
+                else
+                {
+                    basePanel.depth = value;
+                }
             }
         }
 

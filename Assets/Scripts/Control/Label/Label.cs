@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using CommonNS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UnityEngine;
 
 namespace ControlNS
 {
@@ -31,7 +36,10 @@ namespace ControlNS
             set
             {
                 text = value;
-                label.text = text;
+
+                if(isHideText == false)
+                    label.text = text;
+
                 isReLayout = true;
 
                 if (BindProcess != null)

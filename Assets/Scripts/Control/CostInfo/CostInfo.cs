@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using CommonNS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UnityEngine;
 
 namespace ControlNS
 {
@@ -35,7 +40,7 @@ namespace ControlNS
             set
             {
                 diamondAmount = value;
-                info[4].text = "[FFF08D] x" + diamondAmount + "[-]";
+                info[4].text = "[FFF08D]x" + diamondAmount + "[-]";
                 isReLayout = true;
                 if (BindProcess != null)
                     BindProcess(this);
@@ -76,7 +81,7 @@ namespace ControlNS
             sprDiamond = gameObject.transform.Find("SpriteDiamond").GetComponent<UISprite>();
 
             info[1].text = "[FFF08D] x" + roomCardAmount + "[-]";
-            info[4].text = "[FFF08D] x" + diamondAmount + "[-]";
+            info[4].text = "[FFF08D]x" + diamondAmount + "[-]";
         }
 
 
@@ -101,8 +106,8 @@ namespace ControlNS
             for (int i = 0; i < 5; i++)
                 info[i].height = (int)size.y;
 
-            sprRoomCard.height = (int)(size.y * 1.4f);
-            sprRoomCard.width = (int)(size.y * 2f);
+            sprRoomCard.height = (int)size.y;
+            sprRoomCard.width = (int)size.y;
 
             sprDiamond.height = (int)(size.y * 1.5f);
             sprDiamond.width = sprDiamond.height;
@@ -163,7 +168,7 @@ namespace ControlNS
 
             while (true)
             {
-                totalWidth = (int)(fontHeight * 2f) + (int)(fontHeight * 1.5f);
+                totalWidth = fontHeight + (int)(fontHeight * 1.5f);
 
                 for (int i = 0; i < 5; i++)
                 {
