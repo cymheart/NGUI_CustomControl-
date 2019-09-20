@@ -31,7 +31,7 @@ namespace ControlNS
         protected override void Awake()
         {
             base.Awake();
-            cam = GameObject.Find("UI/UI Root/Camera").GetComponent<Camera>();
+            cam = GameObject.Find("UI Root/Camera").GetComponent<Camera>();
             listViewerGroup = new ListViewerGroup(this);
             UIEventListener.Get(gameObject).onPress = Press;
         }
