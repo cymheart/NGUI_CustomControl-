@@ -7,17 +7,19 @@ using UnityEngine;
 
 namespace ControlNS
 {
-    public class ControlGobal: MonoBehaviour
+    public class ControlGobal : MonoBehaviour
     {
         static Transform uiRoot;
-        public static string controlRootPath = "Control/";
+        public static Camera uiRootCam;
+        public static string controlRootPath = "UI/Control/";
         private void Awake()
         {
-            uiRoot = GameObject.Find("UI Root").transform;
+            uiRoot = GameObject.Find("UI/UI Root").transform;
+            uiRootCam = uiRoot.Find("Camera").GetComponent<Camera>();
         }
         static public GameObject CreateCtrl(string ctrlName)
         {
-            GameObject prefab =  Resources.Load<GameObject>(controlRootPath + ctrlName);
+            GameObject prefab = MyTools.GetItemPrefab(controlRootPath + ctrlName);
             GameObject go = Instantiate(prefab, uiRoot);
             return go;
         }
