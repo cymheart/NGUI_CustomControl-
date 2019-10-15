@@ -46,6 +46,18 @@ namespace ControlNS
             }
         }
 
+
+        bool isHideBg;
+        public bool IsHideBg
+        {
+            get { return isHideBg; }
+            set
+            {
+                isHideBg = value;
+                bg.gameObject.SetActive(!isHideBg);
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -64,6 +76,9 @@ namespace ControlNS
 
         public void AddChild(Control ctrl)
         {
+            if (ctrl == null)
+                return;
+
             ctrl.Parent = this;
             ctrl.transform.SetParent(container.transform);
         }
@@ -107,6 +122,8 @@ namespace ControlNS
   
         protected override void Update()
         {
+            base.Update();
+
             if (state < 0)
             {
                 if (listViewerGroup != null)

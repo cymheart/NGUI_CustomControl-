@@ -31,14 +31,17 @@ namespace ControlNS
         protected override void Awake()
         {
             base.Awake();
+            IsReLayoutByChild = true;
             cam = ControlGobal.uiRootCam;
             listViewerGroup = new ListViewerGroup(this);
             UIEventListener.Get(gameObject).onPress = Press;
         }
 
-        public void AddChild(Control control, int height,  int depth = 10000)
+        public ListViewerItem AddChild(Control control, int height, int depth = 10000, string name = null)
         {
+
             ListViewerItem viewerItem = Create<ListViewerItem>();
+            viewerItem.name = name;
             viewerItem.DockType = DockType.HoriCenter;
             viewerItem.MatchType =MatchType.MatchParentWidth;
             viewerItem.CtrlSizeChangeMode = ControlSizeChangeMode.FixedControlSize;
@@ -46,6 +49,8 @@ namespace ControlNS
             viewerItem.Depth = depth;
             AddItem(viewerItem);
             viewerItem.AddChild(control);
+
+            return viewerItem;
         }
 
         public void Destroy()
@@ -54,7 +59,7 @@ namespace ControlNS
             listViewerGroup.Destory();   
         }
 
-        void Press(GameObject go, bool btnState)
+        public void Press(GameObject go, bool btnState)
         {
             if (btnState == true)
             {

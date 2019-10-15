@@ -64,7 +64,8 @@ namespace ControlNS
         }
 
         public void Update()
-        {       
+        {
+
             if (itemList.Count == 0)
                 return;
 
@@ -137,8 +138,8 @@ namespace ControlNS
 
         public bool CanDownPull()
         {
-            if (itemList == null )
-                return true;
+            if (itemList == null || itemList.First == null)
+                return false;
 
             ListViewerItem item = itemList.First.Value;
             Vector3[] headCorners = item.WorldCorners;
@@ -150,9 +151,9 @@ namespace ControlNS
 
         public bool CanUpPull()
         {
-            if (itemList == null)
-                return true;
-
+            if (itemList == null || itemList.Last == null)
+                return false;
+     
             ListViewerItem item = itemList.Last.Value;
             Vector3[] tailCorners = item.WorldCorners;
             if (tailCorners[0].y >= listViewer.WorldCorners[0].y)
@@ -162,6 +163,9 @@ namespace ControlNS
 
         public void SetOffsetY(float offset, bool isLimitPos = true)
         {
+            if (itemList == null || itemList.Count == 0)
+                return;
+
             if (isLimitPos)
             {
                 if (offset > 0)

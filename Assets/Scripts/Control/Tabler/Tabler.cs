@@ -161,7 +161,7 @@ namespace ControlNS
                         return rowcol;
                     }
                 }
-                else
+                else if (ctrl.GetType() == typeof(Tabler))
                 {
                     Tabler tabler = (Tabler)ctrl;
                     Table curtTable = (Table)item.Value.data;
