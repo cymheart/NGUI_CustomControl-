@@ -272,12 +272,6 @@ namespace ControlNS
 
         protected override void Layout()
         {
-            if(name == "item")
-            {
-                int a;
-                a = 3;
-            }
-
             table.ReLayout();
             SetSize((int)table.Width, (int)table.Height);
         }

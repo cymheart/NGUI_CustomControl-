@@ -28,11 +28,11 @@ namespace ControlNS
         [HideInInspector]
         public bool IsReLayoutByChild = false;
 
-        public string name = "control";
-        
+        public new string name = "control";
+
         protected float scale;
 
-        protected List<Control> childrens = new List<Control>(); 
+        protected List<Control> childrens = new List<Control>();
 
         [SerializeField, SetProperty("CtrlSizeChangeMode")]
         protected ControlSizeChangeMode ctrlSizeChangeMode = ControlSizeChangeMode.FixedControlSize;
@@ -195,6 +195,17 @@ namespace ControlNS
             }
         }
 
+        protected UIEventListener.BoolDelegate dragPress;
+        public UIEventListener.BoolDelegate DragPress
+        {
+            get { return dragPress; }
+            set
+            {
+                dragPress = value;
+                UIEventListener.Get(gameObject).onPress = dragPress;
+            }
+        }
+
         protected virtual void Awake()
         {
             Vector3[] worldCorners;
@@ -310,20 +321,26 @@ namespace ControlNS
                     return new Vector2(Width, Height);
 
                 case MatchType.MatchParentWidth:
-                    return new Vector2(Width, child.Height);
+                    return new Vector2(Width, -1);
 
                 case MatchType.MatchParentHeight:
-                    return new Vector2(child.Width, Height);
+                    return new Vector2(-1, Height);
 
                 default:
-                    return new Vector2(child.Width, child.Height);
+                    return new Vector2(-1, -1);
             }
         }
 
         protected virtual void SetComputedSizeAndPosition()
         {
             Vector2 size = parent.FindChildMatchSize(this);
-            SetSize((int)size.x, (int)size.y);
+
+            if (size.x > 0)
+                Width = (int)size.x;
+
+            if (size.y > 0)
+                Height = (int)size.y;
+
             Vector3 pos = parent.FindChildDockPosition(this);
             transform.position = pos;
         }

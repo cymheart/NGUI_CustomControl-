@@ -446,12 +446,6 @@ namespace ControlNS
 
         public void ReLayout()
         {
-            if (name == "item")
-            {
-                int a;
-                a = 3;
-            }
-
             ModifyTableDockAndMatch(dockType);
             LayoutLinesArea(LineDir.HORIZONTAL);
             LayoutLinesArea(LineDir.VERTICAL);
@@ -547,11 +541,6 @@ namespace ControlNS
                 }
             }
 
-            if (name == "item")
-            {
-                int a;
-                a = 3;
-            }
 
             //计算表尺寸
             //根据使用的长度即为表的长度
@@ -807,12 +796,6 @@ namespace ControlNS
 
                             if (ctable == null)
                                 continue;
-
-                            if (name == "item")
-                            {
-                                int a;
-                                a = 3;
-                            }
 
                             if (cellData.GetLayoutSize != null)
                             {
