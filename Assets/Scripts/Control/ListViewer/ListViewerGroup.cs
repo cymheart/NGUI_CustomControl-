@@ -9,7 +9,7 @@ namespace ControlNS
 {
     public class ListViewerGroup
     {
-        public EventUpdater<ListViewerItem> updater;
+        public EventUpdater<int> updater;
         public LinkedList<ListViewerItem> itemList = new LinkedList<ListViewerItem>();
         float spacing = 0.01f;
         public ListViewer listViewer;
@@ -17,7 +17,7 @@ namespace ControlNS
         public ListViewerGroup(ListViewer listViewer)
         {
             this.listViewer = listViewer;   
-            updater = new EventUpdater<ListViewerItem>();
+            updater = new EventUpdater<int>();
         }
 
         public void Destory()

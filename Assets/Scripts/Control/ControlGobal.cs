@@ -19,7 +19,7 @@ namespace ControlNS
         }
         static public GameObject CreateCtrl(string ctrlName)
         {
-            GameObject prefab = MyTools.GetItemPrefab(controlRootPath + ctrlName);
+            GameObject prefab = Resources.Load<GameObject>(controlRootPath + ctrlName);
             GameObject go = Instantiate(prefab, uiRoot);
             return go;
         }

@@ -27,7 +27,7 @@ namespace ControlNS
         }
 
         public DockType dockType;
-        public MatchType matchType;
+        public MatchType matchType = MatchType.MatchParentSize;
 
         public int rowAmount { get; private set; }
         public int colAmount { get; private set; }
@@ -446,6 +446,12 @@ namespace ControlNS
 
         public void ReLayout()
         {
+            if (name == "item")
+            {
+                int a;
+                a = 3;
+            }
+
             ModifyTableDockAndMatch(dockType);
             LayoutLinesArea(LineDir.HORIZONTAL);
             LayoutLinesArea(LineDir.VERTICAL);
@@ -541,13 +547,18 @@ namespace ControlNS
                 }
             }
 
+            if (name == "item")
+            {
+                int a;
+                a = 3;
+            }
 
             //计算表尺寸
             //根据使用的长度即为表的长度
-            if (tbLength == 0 &&
-                (matchType == MatchType.MatchParentSize ||
-                (matchType == MatchType.MatchParentHeight && lineDir == LineDir.HORIZONTAL) ||
-                (matchType == MatchType.MatchParentWidth && lineDir == LineDir.VERTICAL)))
+            if (matchType != MatchType.FixedSize &&
+                matchType != MatchType.MatchParentSize &&
+                ((matchType != MatchType.MatchParentHeight && lineDir == LineDir.HORIZONTAL) ||
+                 (matchType != MatchType.MatchParentWidth && lineDir == LineDir.VERTICAL)))
             {
                 tbLength = usedLength;
                 if (lineDir == LineDir.HORIZONTAL)
@@ -555,6 +566,7 @@ namespace ControlNS
                 else
                     tbWidth = usedLength;
             }
+
 
             //分配未使用的余量长度
             //如果存在有百分比的lines,将把余量(tbRichHeight)平均分配到这些lines上
@@ -611,8 +623,16 @@ namespace ControlNS
                     if (line.lineComputeMode == LineComputeMode.AUTO &&
                         line.enableAutoAdjustRichSize == true)
                     {
-                        line.computeParam = line.computeParam / totalScaleHeight * realTotalHeight;
-                        line.computedDistance = line.computeParam;
+                        if (totalScaleHeight > -0.0001 && totalScaleHeight < 0.0001)
+                        {
+                            line.computeParam = 0;
+                            line.computedDistance = 0;
+                        }
+                        else
+                        {
+                            line.computeParam = line.computeParam / totalScaleHeight * realTotalHeight;
+                            line.computedDistance = line.computeParam;
+                        }
                     }
                 }
             }
@@ -787,6 +807,12 @@ namespace ControlNS
 
                             if (ctable == null)
                                 continue;
+
+                            if (name == "item")
+                            {
+                                int a;
+                                a = 3;
+                            }
 
                             if (cellData.GetLayoutSize != null)
                             {

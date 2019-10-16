@@ -74,6 +74,7 @@ namespace ControlNS
     public enum MatchType
     {
         None,
+        FixedSize,
         MatchParentSize,
         MatchParentWidth,
         MatchParentHeight,

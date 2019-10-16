@@ -68,7 +68,7 @@ namespace ControlNS
        
         public virtual void Destroy()
         {
-            listViewerGroup.updater.UnReg(this);
+            listViewerGroup.updater.UnReg(GetHashCode());
             state = -1;
             Destroy(gameObject);
         }
@@ -89,7 +89,7 @@ namespace ControlNS
             curtItemExpandHeight = Height;
             state = 0;
             startTime = Time.time;
-            listViewerGroup.updater.Reg(this, Update);
+            listViewerGroup.updater.Reg(GetHashCode(), Update);
         }
 
         public void Narrow(float narrowSize)
@@ -99,7 +99,7 @@ namespace ControlNS
 
             state = 0;
             startTime = Time.time;
-            listViewerGroup.updater.Reg(this, Update);
+            listViewerGroup.updater.Reg(GetHashCode(), Update);
         }
 
         public void NarrowDefaultHeight()
@@ -127,7 +127,7 @@ namespace ControlNS
             if (state < 0)
             {
                 if (listViewerGroup != null)
-                    listViewerGroup.updater.UnReg(this);
+                    listViewerGroup.updater.UnReg(GetHashCode());
                 return;
             }
 

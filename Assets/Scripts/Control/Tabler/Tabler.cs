@@ -13,7 +13,10 @@ namespace ControlNS
 
         public override int Width
         {
-            get { return base.Width; }
+            get
+            {
+                return base.Width;
+            }
             set
             {
                 base.Width = value;
@@ -66,6 +69,11 @@ namespace ControlNS
             IsReLayoutByChild = true;
         }
 
+        public void SetTableName(string name)
+        {
+            table.name = name;
+        }
+
         public void SetDefaultCellMargin( Margin margin)
         {
             table.SetDefaultCellMargin(margin);
@@ -83,7 +91,7 @@ namespace ControlNS
 
             int[] rowcol = GetControlRowCol(child);
             if (rowcol == null)
-                return new Vector2(child.Width, child.Height);
+                return new Vector2(-1, -1);
 
             RectangleF rect = table.GetCellContentRect(rowcol[0], rowcol[1]);
             rect = table.TransToGlobalRect(rect);
@@ -94,12 +102,12 @@ namespace ControlNS
                     return new Vector2(rect.Width, rect.Height);
 
                 case MatchType.MatchParentWidth:
-                    return new Vector2(rect.Width, child.Height);
+                    return new Vector2(rect.Width, -1);
 
                 case MatchType.MatchParentHeight:
-                    return new Vector2(child.Width, rect.Height);
+                    return new Vector2(-1, rect.Height);
                 default:
-                    return new Vector2(child.Width, child.Height);
+                    return new Vector2(-1, -1);
             }
         }
 
@@ -161,7 +169,7 @@ namespace ControlNS
                         return rowcol;
                     }
                 }
-                else if (ctrl.GetType() == typeof(Tabler))
+                else if(ctrl.GetType() == typeof(Tabler))
                 {
                     Tabler tabler = (Tabler)ctrl;
                     Table curtTable = (Table)item.Value.data;
@@ -264,7 +272,14 @@ namespace ControlNS
 
         protected override void Layout()
         {
+            if(name == "item")
+            {
+                int a;
+                a = 3;
+            }
+
             table.ReLayout();
+            SetSize((int)table.Width, (int)table.Height);
         }
 
         protected override void Update()
@@ -275,9 +290,13 @@ namespace ControlNS
                 if (parent != null)
                 {
                     UIWidget widget = parent.GetComponent<UIWidget>();
-                    float x = widget.worldCorners[0].x * scale;
-                    float y = widget.worldCorners[0].y * scale;
-                    table.SetTablePosition(x, y);
+
+                    if (widget != null)
+                    {
+                        float x = widget.worldCorners[0].x * scale;
+                        float y = widget.worldCorners[0].y * scale;
+                        table.SetTablePosition(x, y);
+                    }
                 }
             }
 
