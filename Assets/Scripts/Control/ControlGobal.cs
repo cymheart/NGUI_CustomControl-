@@ -11,10 +11,10 @@ namespace ControlNS
     {
         static Transform uiRoot;
         public static Camera uiRootCam;
-        public static string controlRootPath = "UI/Control/";
+        public static string controlRootPath = "Control/";
         private void Awake()
         {
-            uiRoot = GameObject.Find("UI/UI Root").transform;
+            uiRoot = GameObject.Find("UI Root").transform;
             uiRootCam = uiRoot.Find("Camera").GetComponent<Camera>();
         }
         static public GameObject CreateCtrl(string ctrlName)

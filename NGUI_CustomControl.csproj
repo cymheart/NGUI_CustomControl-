@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.3p4</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -99,6 +101,7 @@
     <Compile Include="Assets\Scripts\Control\ListViewer\ListViewer.cs" />
     <Compile Include="Assets\Scripts\Control\ListViewer\ListViewerGroup.cs" />
     <Compile Include="Assets\Scripts\Control\ListViewer\ListViewerItem.cs" />
+    <Compile Include="Assets\Scripts\Control\OptionSelecter\OptionSelecter.cs" />
     <Compile Include="Assets\Scripts\Control\SuitSelecter\SuitSelecter.cs" />
     <Compile Include="Assets\Scripts\Control\Tabler\Table.cs" />
     <Compile Include="Assets\Scripts\Control\Tabler\TableBaseTypes.cs" />
@@ -292,6 +295,7 @@
     <None Include="Assets\ThirdPart\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\ThirdPart\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

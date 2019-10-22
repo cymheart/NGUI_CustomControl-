@@ -26,7 +26,7 @@ namespace GameModeSettingNS
         RoundCheckBox[] cmpcard;
         CostInfo costinfo;
 
-
+        OptionSelecter jokerSelecter;
 
         void Start()
         {
@@ -47,6 +47,7 @@ namespace GameModeSettingNS
             CreateInfo5();
             CreateInfo6();
             CreateInfo7();
+            CreateInfo8();
         }
 
         void SettingDataToViewer()
@@ -243,6 +244,33 @@ namespace GameModeSettingNS
         void CreateInfo4()
         {
             Tabler tabler = Control.Create<Tabler>();
+            listViewer.AddChild(tabler, 50);
+
+            Label playLabel = Control.Create<Label>();
+            playLabel.CtrlSizeChangeMode = ControlSizeChangeMode.FitContentSize;
+            playLabel.Height = 25;
+            playLabel.Text = "带王:";
+            tabler.AddChild(playLabel, 0, 0);
+            tabler.SetCellMargin(0, 0, new Margin(10, 0, 0, 0));
+
+            jokerSelecter = Control.Create<OptionSelecter>();
+            jokerSelecter.MatchType = MatchType.MatchParentHeight;
+            jokerSelecter.FontSize = 25;
+            jokerSelecter.Width = 300;
+            jokerSelecter.Option = new string[] { "2张王", "4张王", "6张王", "8张王", "增加1人加1王" };
+            jokerSelecter.BindProcess = JokerCountSelect;
+
+            tabler.SetCellMargin(0, 1, new Margin(0, 4, 0, 4));
+
+            tabler.AddChild(jokerSelecter, 0, 1);
+            tabler.EnableTableLineAutoAdjustRichSize(0, true, LineDir.HORIZONTAL);
+
+        }
+
+
+        void CreateInfo5()
+        {
+            Tabler tabler = Control.Create<Tabler>();
             tabler.SetDefaultCellMargin(new Margin(0, 0, 30, 0));
             listViewer.AddChild(tabler, 50);
 
@@ -277,7 +305,7 @@ namespace GameModeSettingNS
 
         }
 
-        void CreateInfo5()
+        void CreateInfo6()
         {
             Tabler tabler = Control.Create<Tabler>();
             tabler.SetDefaultCellMargin(new Margin(0, 0, 30, 0));
@@ -309,7 +337,7 @@ namespace GameModeSettingNS
 
         }
 
-        void CreateInfo6()
+        void CreateInfo7()
         {
             Tabler tabler = Control.Create<Tabler>();
             tabler.SetDefaultCellMargin(new Margin(0, 0, 30, 0));
@@ -347,7 +375,7 @@ namespace GameModeSettingNS
 
         }
 
-        void CreateInfo7()
+        void CreateInfo8()
         {
             Tabler tabler = Control.Create<Tabler>();
             tabler.SetDefaultCellMargin(new Margin(0, 0, 30, 0));
