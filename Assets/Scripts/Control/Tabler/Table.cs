@@ -541,7 +541,6 @@ namespace ControlNS
                 }
             }
 
-
             //计算表尺寸
             //根据使用的长度即为表的长度
             if (matchType != MatchType.FixedSize &&

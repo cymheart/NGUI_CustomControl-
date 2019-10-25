@@ -75,6 +75,32 @@ namespace ControlNS
             }
         }
 
+        [SerializeField, SetProperty("IsNotChangedDisabledColor")]
+        bool isNotChangedDisabledColor = true;
+        public bool IsNotChangedDisabledColor
+        {
+            get
+            {
+                return isNotChangedDisabledColor;
+            }
+            set
+            {
+                isNotChangedDisabledColor = value;
+
+                if(!isNotChangedDisabledColor && isDisabled)
+                {
+                    label.Alpha = 0.5f;
+                    bg.alpha = 0.5f;
+                }
+                else
+                {
+                    label.Alpha = 1f;
+                    bg.alpha = 1f;
+                }
+            }
+        }
+
+
         [SerializeField, SetProperty("IsDisabled")]
         bool isDisabled = false;
         public bool IsDisabled
@@ -89,9 +115,13 @@ namespace ControlNS
 
                 if (isDisabled)
                 {
-                    label.Alpha = 0.5f;
+                    if(!IsNotChangedDisabledColor)
+                    {
+                        label.Alpha = 0.5f;
+                        bg.alpha = 0.5f;
+                    }
+
                     baseCollider.enabled = false;
-                    bg.alpha = 0.5f;
                 }
                 else
                 {
@@ -105,6 +135,21 @@ namespace ControlNS
             }
         }
 
+        [SerializeField, SetProperty("IsDisabledAndNotChangeColor")]
+        bool isDisabledAndNotChangeColor = false;
+        public bool IsDisabledAndNotChangeColor
+        {
+            get
+            {
+                return isDisabledAndNotChangeColor;
+            }
+            set
+            {
+                isDisabledAndNotChangeColor = value;
+                IsNotChangedDisabledColor = value;
+                IsDisabled = value;
+            }
+        }
 
         [SerializeField, SetProperty("IsCheck")]
         bool isCheck = false;
@@ -179,7 +224,7 @@ namespace ControlNS
             label = gameObject.transform.Find("Label").GetComponent<Label>();
             label.Parent = this;
             label.BindProcess = null;
-            label.DockType =  DockType.Left;
+            label.DockType =  DockType.None;
             label.MatchType = MatchType.None;
 
             UIEventListener.Get(gameObject).onClick = Click;

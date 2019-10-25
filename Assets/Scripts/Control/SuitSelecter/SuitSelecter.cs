@@ -3,8 +3,8 @@
 namespace ControlNS
 {
     /// <summary>
-    /// 花色
-    /// </summary>
+ /// 花色
+ /// </summary>
     public enum Suits
     {
         None = -1,

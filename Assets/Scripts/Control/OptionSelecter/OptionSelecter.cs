@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommonNS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace ControlNS
@@ -35,6 +39,40 @@ namespace ControlNS
                 label.text = Option[selectedIdx];
             }
 
+        }
+
+        [SerializeField, SetProperty("IsDisabled")]
+        bool isDisabled = false;
+        public bool IsDisabled
+        {
+            get
+            {
+                return isDisabled;
+            }
+            set
+            {
+                isDisabled = value;
+
+                if (isDisabled)
+                {
+                    UIEventListener.Get(leftArraw.gameObject).onClick = null;
+                    UIEventListener.Get(rightArraw.gameObject).onClick = null;
+
+                    UIEventListener.Get(leftArraw.gameObject).onPress = null;
+                    UIEventListener.Get(rightArraw.gameObject).onPress = null;
+          
+                }
+                else
+                {
+                    UIEventListener.Get(leftArraw.gameObject).onClick = Click;
+                    UIEventListener.Get(rightArraw.gameObject).onClick = Click;
+                    UIEventListener.Get(leftArraw.gameObject).onPress = Press;
+                    UIEventListener.Get(rightArraw.gameObject).onPress = Press;
+                }
+
+                if (BindProcess != null)
+                    BindProcess(this);
+            }
         }
 
         // <summary>

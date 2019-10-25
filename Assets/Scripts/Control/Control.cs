@@ -25,6 +25,10 @@ namespace ControlNS
         [HideInInspector]
         public bool IsChildReLayout = false;
 
+
+        /// <summary>
+        /// 是否根据子对象重新布局而触发重新布局
+        /// </summary>
         [HideInInspector]
         public bool IsReLayoutByChild = false;
 
@@ -275,6 +279,9 @@ namespace ControlNS
 
         }
 
+        /// <summary>
+        /// 当系统回调此函数时，说明已经计算出当前Control的一个确定的尺寸了
+        /// </summary>
         protected virtual void Layout()
         {
 
@@ -297,16 +304,19 @@ namespace ControlNS
             switch(child.DockType)
             {
                 case DockType.Center:
-                    return transform.position;
+                    return Vector3.zero;
 
                 case DockType.HoriCenter:
-                    return new Vector3(transform.position.x, child.transform.position.y, 0);
+                    return new Vector3(0, child.transform.localPosition.y, 0);
 
                 case DockType.VertCenter:
-                    return new Vector3(child.transform.position.x, transform.position.y, 0);
+                    return new Vector3(child.transform.localPosition.x, 0, 0);
+
+                case DockType.Left:
+                    return new Vector3(-Width / 2 + child.Width / 2, 0, 0);
 
                 default:
-                    return child.transform.position;
+                    return child.transform.localPosition;
             }
         }
 
@@ -341,8 +351,7 @@ namespace ControlNS
             if (size.y > 0)
                 Height = (int)size.y;
 
-            Vector3 pos = parent.FindChildDockPosition(this);
-            transform.position = pos;
+            transform.localPosition = parent.FindChildDockPosition(this);
         }
 
         static public int GetTextRenderWidth(string txt, Font font, int fontSize, FontStyle fontStyle)

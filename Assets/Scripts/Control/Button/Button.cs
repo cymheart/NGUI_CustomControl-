@@ -9,9 +9,22 @@ namespace ControlNS
         UISprite bg;
         Label label;
 
-        int state = 0;
-        float stateStartTime;
-        float stateLiveTime;
+
+
+        [SerializeField, SetProperty("Font")]
+        float textOffsetY = 4;
+        public float TextOffsetY
+        {
+            get
+            {
+                return textOffsetY;
+            }
+            set
+            {
+                textOffsetY = value;
+                isReLayout = true;
+            }
+        }
 
 
         [SerializeField, SetProperty("Font")]
@@ -75,6 +88,32 @@ namespace ControlNS
             }
         }
 
+        [SerializeField, SetProperty("IsChangedDisabledColor")]
+        bool isChangedDisabledColor = false;
+        public bool IsChangedDisabledColor
+        {
+            get
+            {
+                return isChangedDisabledColor;
+            }
+            set
+            {
+                isChangedDisabledColor = value;
+
+                if (isChangedDisabledColor && isDisabled)
+                {
+                    label.Alpha = 0.5f;
+                    bg.alpha = 0.5f;
+                }
+                else
+                {
+                    label.Alpha = 1f;
+                    bg.alpha = 1f;
+                }
+            }
+        }
+
+
         [SerializeField, SetProperty("IsDisabled")]
         bool isDisabled = false;
         public bool IsDisabled
@@ -89,9 +128,13 @@ namespace ControlNS
 
                 if (isDisabled)
                 {
-                    label.Alpha = 0.5f;
+                    if (IsChangedDisabledColor)
+                    {
+                        label.Alpha = 0.5f;
+                        bg.alpha = 0.5f;
+                    }
+
                     baseCollider.enabled = false;
-                    bg.alpha = 0.5f;
                 }
                 else
                 {
@@ -152,6 +195,7 @@ namespace ControlNS
             {
                 ctrlSizeChangeMode = value;
                 label.CtrlSizeChangeMode = ctrlSizeChangeMode;
+                isReLayout = true;
             }
         }
 
@@ -237,18 +281,11 @@ namespace ControlNS
             Vector3 pos = new Vector3(x, y, 0);
             bg.transform.position = pos;
 
-            pos.y += 4 / scale;
+            pos.y += textOffsetY / scale;
             label.transform.position = pos;
 
             baseCollider.size = new Vector3(Width, Height, 0);
 
-        }
-
-        void SetState(int state, float startTime, float liveTime)
-        {
-            this.state = state;
-            stateStartTime = startTime;
-            stateLiveTime = liveTime;
         }
     }
 }

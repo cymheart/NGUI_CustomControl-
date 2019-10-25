@@ -118,37 +118,37 @@ namespace ControlNS
                 return child.transform.position;
 
             RectangleF rect = table.GetCellContentRect(rowcol[0], rowcol[1]);
-            rect = table.TransToGlobalRect(rect);
+            RectangleF tableRect = table.GetTableRect();
+            float xstart = -tableRect.Width / 2;
+            float ystart = -tableRect.Height / 2;
+            rect.X += xstart;
+            rect.Y += ystart;
             float x, y;
 
             switch (child.DockType)
             {
                 case DockType.Center:
-                    x = (rect.Left + rect.Right) / (2 * scale);
-                    y = (rect.Top + rect.Bottom) / (2 * scale);
+                    x = (rect.Left + rect.Right) / 2;
+                    y = (rect.Top + rect.Bottom) / 2;
                     return  new Vector3(x, y, 0);
 
                 case DockType.HoriCenter:
-                    x = (rect.Left + rect.Right) / (2 * scale);
-                    return new Vector3(x, child.transform.position.y, 0);
+                    x = (rect.Left + rect.Right) / 2;
+                    return new Vector3(x, child.transform.localPosition.y, 0);
 
                 case DockType.VertCenter:
-                    y = (rect.Top + rect.Bottom) / (2 * scale);
-                    return new Vector3(child.transform.position.x, y, 0);
+                    y = (rect.Top + rect.Bottom) / 2;
+                    return new Vector3(child.transform.localPosition.x, y, 0);
+
+                case DockType.Left:
+                    x = rect.Left + child.Width / 2;
+                    y = (rect.Top + rect.Bottom) / 2;
+                    return new Vector3(x, y, 0);
 
                 default:
-                    return child.transform.position;
+                    return child.transform.localPosition;
             }
 
-        }
-
-        protected override void SetComputedSizeAndPosition()
-        {
-            base.SetComputedSizeAndPosition();
-            Vector3[] worldCorners = WorldCorners;
-
-            if(table.parentTable == null)
-                table.SetTablePosition(worldCorners[0].x * scale, worldCorners[0].y * scale);
         }
 
         int[] GetControlRowCol(Control ctrl)
@@ -249,22 +249,7 @@ namespace ControlNS
             Control ctrl = (Control)cellData.data;
             if (lineDir == LineDir.VERTICAL)
             {
-                //RectangleF rect = table.GetCellContentRect(cellData.rowIdx, cellData.colIdx);
-
-                //if(ctrl.Width > rect.Width)
-                //{
-                //    if (ctrl.CtrlSizeChangeMode != ControlSizeChangeMode.FixedControlSize)
-                //        ctrl.CtrlSizeChangeMode = ControlSizeChangeMode.FixedControlSize;
-                //}
-                //else
-                //{
-                //    if(ctrl.CtrlSizeChangeMode != ControlSizeChangeMode.FitContentSize)
-                //        ctrl.CtrlSizeChangeMode = ControlSizeChangeMode.FitContentSize;
-                //}
-
                 return ctrl.Width;
-
-
             }
 
             return ctrl.Height;
@@ -276,26 +261,6 @@ namespace ControlNS
             SetSize((int)table.Width, (int)table.Height);
         }
 
-        protected override void Update()
-        {
-            if (table.parentTable == null)
-            {
-                Transform parent = transform.parent;
-                if (parent != null)
-                {
-                    UIWidget widget = parent.GetComponent<UIWidget>();
-
-                    if (widget != null)
-                    {
-                        float x = widget.worldCorners[0].x * scale;
-                        float y = widget.worldCorners[0].y * scale;
-                        table.SetTablePosition(x, y);
-                    }
-                }
-            }
-
-            base.Update();
-        }
     }
 
 }
