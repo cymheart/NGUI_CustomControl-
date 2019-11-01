@@ -130,20 +130,20 @@ namespace ControlNS
                 case DockType.Center:
                     x = (rect.Left + rect.Right) / 2;
                     y = (rect.Top + rect.Bottom) / 2;
-                    return  new Vector3(x, y, 0);
+                    return  new Vector3(x, y, child.transform.localPosition.z);
 
                 case DockType.HoriCenter:
                     x = (rect.Left + rect.Right) / 2;
-                    return new Vector3(x, child.transform.localPosition.y, 0);
+                    return new Vector3(x, child.transform.localPosition.y, child.transform.localPosition.z);
 
                 case DockType.VertCenter:
                     y = (rect.Top + rect.Bottom) / 2;
-                    return new Vector3(child.transform.localPosition.x, y, 0);
+                    return new Vector3(child.transform.localPosition.x, y, child.transform.localPosition.z);
 
                 case DockType.Left:
                     x = rect.Left + child.Width / 2;
                     y = (rect.Top + rect.Bottom) / 2;
-                    return new Vector3(x, y, 0);
+                    return new Vector3(x, y, child.transform.localPosition.z);
 
                 default:
                     return child.transform.localPosition;
@@ -257,6 +257,12 @@ namespace ControlNS
 
         protected override void Layout()
         {
+            if(name == "photo")
+            {
+                int a;
+                a = 3;
+            }
+
             table.ReLayout();
             SetSize((int)table.Width, (int)table.Height);
         }

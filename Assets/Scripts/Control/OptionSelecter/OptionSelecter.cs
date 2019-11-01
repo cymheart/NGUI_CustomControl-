@@ -1,4 +1,5 @@
 ﻿using CommonNS;
+using GameAssets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -159,24 +160,24 @@ namespace ControlNS
             leftArraw.width = Height;
             leftArraw.height = Height;
             float x = -Width / 2 + leftArraw.width / 2;
-            leftArraw.transform.localPosition = new Vector3(x, 0, 0);
+            leftArraw.transform.localPosition = new Vector3(x, 0, leftArraw.transform.localPosition.z);
 
             //
             rightArraw.width = Height;
             rightArraw.height = Height;
             x = Width / 2 - rightArraw.width / 2;
-            rightArraw.transform.localPosition = new Vector3(x, 0, 0);
+            rightArraw.transform.localPosition = new Vector3(x, 0, rightArraw.transform.localPosition.z);
 
             //
             optionSpr.width = Width - Height * 2;
             optionSpr.height = Height;
             x = -Width / 2 + leftArraw.width + optionSpr.width / 2;
-            optionSpr.transform.localPosition = new Vector3(x, 0, 0);
+            optionSpr.transform.localPosition = new Vector3(x, 0, optionSpr.transform.localPosition.z);
 
             float spacing = 20;
             label.width =(int)(optionSpr.width - spacing);
             label.height = optionSpr.height;
-            label.transform.localPosition = Vector3.zero;
+            label.transform.localPosition = new Vector3(0,0, label.transform.localPosition.z);
         }
     }
 }

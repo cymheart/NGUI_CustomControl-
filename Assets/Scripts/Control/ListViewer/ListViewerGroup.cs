@@ -41,14 +41,14 @@ namespace ControlNS
                 Vector3[] itemCorner = lastItem.WorldCorners;
                 float y = itemCorner[0].y - spacing - item.GetUnitSize().y / 2;
                 float x = lastItem.transform.position.x;
-                item.transform.position = new Vector3(x, y, 0);
+                item.transform.position = new Vector3(x, y, listViewer.transform.position.z);
             }
             else
             {
                 Vector3[] itemCorner = listViewer.WorldCorners;
                 float y = itemCorner[1].y - item.GetUnitSize().y / 2;
                 float x = listViewer.transform.position.x;
-                item.transform.position = new Vector3(x, y, 0);
+                item.transform.position = new Vector3(x, y, listViewer.transform.position.z);
             }
 
             item.transform.SetParent(listViewer.transform);

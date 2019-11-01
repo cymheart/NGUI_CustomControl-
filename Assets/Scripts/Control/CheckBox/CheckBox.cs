@@ -129,9 +129,6 @@ namespace ControlNS
                     baseCollider.enabled = true;
                     bg.alpha = 1f;
                 }
-
-                if (BindProcess != null)
-                    BindProcess(this);
             }
         }
 
@@ -193,9 +190,6 @@ namespace ControlNS
                     locked.gameObject.SetActive(true);
                 else
                     locked.gameObject.SetActive(false);
-
-                if (BindProcess != null)
-                    BindProcess(this);
             }
         }
 

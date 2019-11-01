@@ -133,7 +133,7 @@ namespace ControlNS
 
             //
             float x = (worldCorners[3].x + worldCorners[0].x) / 2;
-            Vector3 pos = new Vector3(x, y, 0);
+            Vector3 pos = new Vector3(x, y, label.transform.position.z);
             label.width = Width;
             label.height = Height;
             label.transform.position = pos;

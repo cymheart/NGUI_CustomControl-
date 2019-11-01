@@ -11,7 +11,6 @@ namespace ControlNS
         public delegate void BindControlDelegate(Control control);
         public BindControlDelegate BindProcess;
 
-
         private UIWidget baseWidget;
         private UIPanel basePanel;
         private int oldWidth = 0;
@@ -178,6 +177,33 @@ namespace ControlNS
             }
         }
 
+        public float Alpha
+        {
+            get
+            {
+                if (baseWidget != null)
+                {
+                    return baseWidget.alpha;
+                }
+                else
+                {
+                    return basePanel.alpha;
+                }
+            }
+            set
+            {
+
+                if (baseWidget != null)
+                {
+                    baseWidget.alpha = value;
+                }
+                else
+                {
+                    basePanel.alpha = value;
+                }
+            }
+        }
+
 
         public Vector3[] WorldCorners
         {
@@ -246,7 +272,9 @@ namespace ControlNS
               isReLayout == false &&
               Width == oldWidth &&
               Height == oldHeight)
+            {
                 return;
+            }
 
             Layout();
 
@@ -304,16 +332,16 @@ namespace ControlNS
             switch(child.DockType)
             {
                 case DockType.Center:
-                    return Vector3.zero;
+                    return new Vector3(0, 0, child.transform.localPosition.z);
 
                 case DockType.HoriCenter:
-                    return new Vector3(0, child.transform.localPosition.y, 0);
+                    return new Vector3(0, child.transform.localPosition.y, child.transform.localPosition.z);
 
                 case DockType.VertCenter:
-                    return new Vector3(child.transform.localPosition.x, 0, 0);
+                    return new Vector3(child.transform.localPosition.x, 0, child.transform.localPosition.z);
 
                 case DockType.Left:
-                    return new Vector3(-Width / 2 + child.Width / 2, 0, 0);
+                    return new Vector3(-Width / 2 + child.Width / 2, 0, child.transform.localPosition.z);
 
                 default:
                     return child.transform.localPosition;

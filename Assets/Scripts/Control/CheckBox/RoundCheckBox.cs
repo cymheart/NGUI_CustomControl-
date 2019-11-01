@@ -129,9 +129,6 @@ namespace ControlNS
                     baseCollider.enabled = true;
                     bg.alpha = 1f;
                 }
-
-                if (BindProcess != null)
-                    BindProcess(this);
             }
         }
 

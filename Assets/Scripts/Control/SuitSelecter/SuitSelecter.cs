@@ -48,7 +48,7 @@ namespace ControlNS
             {
                 selectedSuit = value;
                 GreyBtn();
-                switch(selectedSuit)
+                switch (selectedSuit)
                 {
                     case Suits.Diamond:
                         btnDiamond.GetComponent<UIButton>().defaultColor = Color.white;
@@ -110,7 +110,7 @@ namespace ControlNS
             btnClub = gameObject.transform.Find("BtnClub").GetComponent<UISprite>();
             btnHeart = gameObject.transform.Find("BtnHeart").GetComponent<UISprite>();
             btnSpade = gameObject.transform.Find("BtnSpade").GetComponent<UISprite>();
-           
+
             sprDiamond = btnDiamond.transform.GetChild(0).GetComponent<UISprite>();
             sprClub = btnClub.transform.GetChild(0).GetComponent<UISprite>();
             sprHeart = btnHeart.transform.GetChild(0).GetComponent<UISprite>();
@@ -146,12 +146,12 @@ namespace ControlNS
                 btnClub.GetComponent<UIButton>().defaultColor = Color.white;
                 selectedSuit = Suits.Club;
             }
-            else if(go == btnHeart.gameObject)
+            else if (go == btnHeart.gameObject)
             {
                 btnHeart.GetComponent<UIButton>().defaultColor = Color.white;
                 selectedSuit = Suits.Heart;
             }
-            else if(go == btnSpade.gameObject)
+            else if (go == btnSpade.gameObject)
             {
                 btnSpade.GetComponent<UIButton>().defaultColor = Color.white;
                 selectedSuit = Suits.Spade;
@@ -199,16 +199,16 @@ namespace ControlNS
             float unitCardWidth = btnDiamond.width / scale;
             float unitCardHalfWidth = unitCardWidth / 2;
             float x = boxPosX + unitCardHalfWidth;
-            btnDiamond.transform.position = new Vector3(x, y, 0);
+            btnDiamond.transform.position = new Vector3(x, y, btnDiamond.transform.position.z);
 
             x += unitSpacing + unitCardWidth;
-            btnClub.transform.position = new Vector3(x, y, 0);
+            btnClub.transform.position = new Vector3(x, y, btnClub.transform.position.z);
 
             x += unitSpacing + unitCardWidth;
-            btnHeart.transform.position = new Vector3(x, y, 0);
+            btnHeart.transform.position = new Vector3(x, y, btnHeart.transform.position.z);
 
             x += unitSpacing + unitCardWidth;
-            btnSpade.transform.position = new Vector3(x, y, 0);
+            btnSpade.transform.position = new Vector3(x, y, btnSpade.transform.position.z);
         }
     }
 }

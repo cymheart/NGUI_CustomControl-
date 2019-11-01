@@ -278,7 +278,7 @@ namespace ControlNS
             float y = (worldCorners[0].y + worldCorners[1].y) / 2;
 
             //
-            Vector3 pos = new Vector3(x, y, 0);
+            Vector3 pos = new Vector3(x, y, bg.transform.position.z);
             bg.transform.position = pos;
 
             pos.y += textOffsetY / scale;

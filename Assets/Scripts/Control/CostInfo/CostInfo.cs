@@ -127,31 +127,31 @@ namespace ControlNS
 
             //
             float w = info[0].width / scale;
-            info[0].transform.position = new Vector3(startPosX + w / 2, y, 0);
+            info[0].transform.position = new Vector3(startPosX + w / 2, y, info[0].transform.position.z);
 
             startPosX += w;
             w = sprRoomCard.width / scale;
-            sprRoomCard.transform.position = new Vector3(startPosX + w / 2, y, 0);
+            sprRoomCard.transform.position = new Vector3(startPosX + w / 2, y, sprRoomCard.transform.position.z);
 
             startPosX += w;
             w = info[1].width / scale;
-            info[1].transform.position = new Vector3(startPosX + w / 2, y, 0);
+            info[1].transform.position = new Vector3(startPosX + w / 2, y, info[1].transform.position.z);
 
             startPosX += w;
             w = info[2].width / scale;
-            info[2].transform.position = new Vector3(startPosX + w / 2, y, 0);
+            info[2].transform.position = new Vector3(startPosX + w / 2, y, info[2].transform.position.z);
 
             startPosX += w;
             w = info[3].width / scale;
-            info[3].transform.position = new Vector3(startPosX + w / 2, y, 0);
+            info[3].transform.position = new Vector3(startPosX + w / 2, y, info[3].transform.position.z);
 
             startPosX += w;
             w = sprDiamond.width / scale;
-            sprDiamond.transform.position = new Vector3(startPosX + w / 2, y, 0);
+            sprDiamond.transform.position = new Vector3(startPosX + w / 2, y, sprDiamond.transform.position.z);
 
             startPosX += w;
             w = info[4].width / scale;
-            info[4].transform.position = new Vector3(startPosX + w / 2, y, 0);
+            info[4].transform.position = new Vector3(startPosX + w / 2, y, info[4].transform.position.z);
 
             transform.localEulerAngles = eulerAngles;
         }
